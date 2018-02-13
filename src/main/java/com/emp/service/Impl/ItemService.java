@@ -28,14 +28,14 @@ public class ItemService implements IItemService {
 
 	@Autowired
 	private ICategoryDao categoryDao;
-	
+
 	@Autowired
 	private ICategoryService categoryService;
 
 	@Override
 	public List<ItemResponseDto> getList() {
 		return getResponselist(itemDao.all());
-		
+
 	}
 
 	@Override
@@ -80,31 +80,40 @@ public class ItemService implements IItemService {
 	@Override
 	public List<ItemResponseDto> getByCategoryId(int categoryId) {
 		return getResponselist(itemDao.getItemByCategoryId(categoryId));
-		
+
 	}
-	
+
 	public ItemResponseDto getResponse(Item item) {
 		ItemResponseDto response = ItemMapper.convertEntityToResponse(item);
-		if(response == null) {
+		if (response == null) {
 			return null;
 		}
 		CategoryResponseDto category = categoryService.getById(item.getCategoryId());
 		response.setCategory(category);
 		return response;
 	}
-	
+
 	public List<ItemResponseDto> getResponselist(List<Item> itemList) {
-		if(CollectionUtils.isEmpty(itemList)) {
+		if (CollectionUtils.isEmpty(itemList)) {
 			return null;
 		}
 		List<ItemResponseDto> responseList = new ArrayList<>(itemList.size());
-		for(Item item : itemList) {
+		for (Item item : itemList) {
 			ItemResponseDto response = getResponse(item);
-			if(response != null) {
+			if (response != null) {
 				responseList.add(response);
 			}
 		}
 		return responseList;
+	}
+
+	@Override
+	public void saveList(List<AddItemRequestDto> listToSave, int categoryId) {
+		List<Item> requstList = ItemMapper.convertAddRequestListToEntityList(listToSave, categoryId);
+		if (CollectionUtils.isEmpty(requstList)) {
+			return;
+		}
+		itemDao.saveListOfItem(requstList);
 	}
 
 }

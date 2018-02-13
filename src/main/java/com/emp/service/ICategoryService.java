@@ -13,5 +13,6 @@ public interface ICategoryService {
 	public CategoryResponseDto  update(UpdateCategoryRequestDto request);
 	public CategoryResponseDto  getById(int id);
 	public boolean delete(int id);
+//	public List<CategoryResponseDto> saveMultipleItem(List<AddItemRequestDto> listToSave);
 	
 }

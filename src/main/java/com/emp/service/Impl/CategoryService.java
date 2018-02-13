@@ -4,11 +4,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import com.emp.dao.ICategoryDao;
 import com.emp.mapper.CategoryMapper;
 import com.emp.model.Category;
 import com.emp.request.dto.AddCategoryRequestDto;
+import com.emp.request.dto.AddItemRequestDto;
 import com.emp.request.dto.UpdateCategoryRequestDto;
 import com.emp.response.dto.CategoryResponseDto;
 import com.emp.service.ICategoryService;
@@ -18,6 +20,9 @@ public class CategoryService implements ICategoryService {
 
 	@Autowired
 	ICategoryDao categoryDao;
+
+	@Autowired
+	ItemService itemService;
 
 	@Override
 	public List<CategoryResponseDto> getList() {
@@ -30,6 +35,8 @@ public class CategoryService implements ICategoryService {
 	if(category != null)
 	{
 		categoryDao.save(category);
+		List<AddItemRequestDto> itemList = request.getItemList();
+		itemService.saveList(itemList,  category.getId());
 		return CategoryMapper.convertEntityToResponse(category);
 	}
 	return null;

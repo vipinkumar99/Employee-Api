@@ -14,5 +14,6 @@ public interface IItemService {
 	public ItemResponseDto  getById(int id);
 	public boolean delete(int id);
 	public List<ItemResponseDto> getByCategoryId(int categoryId);
+	void saveList(List<AddItemRequestDto> listToSave, int categoryId);
 	
 }

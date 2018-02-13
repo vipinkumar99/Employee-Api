@@ -39,7 +39,6 @@ public class Category {
 	private int parentId;
 	@Column(name = Columns.META, length = 500, nullable = false)
 	private String metaInfo;
-
 	public int getId() {
 		return id;
 	}

@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.emp.dao.IEmployeeDao;
+import com.emp.enums.ResponseCode;
+import com.emp.exception.MyException;
 import com.emp.mapper.EmployeeMapper;
 import com.emp.model.Employee;
 import com.emp.request.dto.AddEmployeeRequestDto;
@@ -46,12 +48,16 @@ public class EmployeeService implements IEmployeeService {
 	}
 
 	@Override
-	public EmployeeResponseDto updateEmployee(UpdateEmployeeRequestDto employee) {
-
+	public EmployeeResponseDto updateEmployee(UpdateEmployeeRequestDto employee) throws MyException {
 		Employee response = EmployeeMapper.convertUpdateRequestToEntity(employee);
 		if (response == null) {
 			return null;
 		}
+      Employee entity=employeeDao.getById(response.getEmployeeId());
+      if(entity==null) {
+    	  throw new MyException(ResponseCode.NO_EMPLOYEE_PRESENT);
+      }
+		response.setCreated(entity.getCreated());
 		employeeDao.update(response);
 		return EmployeeMapper.convertEntityToResponse(response);
 	}

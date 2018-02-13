@@ -12,23 +12,17 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
-@Table(name="Employee_Api")
-public class Employee {
+@Table(name = "role_api")
+public class Role {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int employeeId;
-	
-	private String employeeName;
-	private int employeeAge;
-	
-	//@Column
+	private int id;
+	private String name;
 	@CreationTimestamp
 	private Date created;
-	
 	@UpdateTimestamp
 	private Date updated;
-	
 
 	public Date getCreated() {
 		return created;
@@ -46,28 +40,20 @@ public class Employee {
 		this.updated = updated;
 	}
 
-	public int getEmployeeId() {
-		return employeeId;
+	public int getId() {
+		return id;
 	}
 
-	public void setEmployeeId(int employeeId) {
-		this.employeeId = employeeId;
+	public void setId(int id) {
+		this.id = id;
 	}
 
-	public String getEmployeeName() {
-		return employeeName;
+	public String getName() {
+		return name;
 	}
 
-	public void setEmployeeName(String employeeName) {
-		this.employeeName = employeeName;
-	}
-
-	public int getEmployeeAge() {
-		return employeeAge;
-	}
-
-	public void setEmployeeAge(int employeeAge) {
-		this.employeeAge = employeeAge;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }

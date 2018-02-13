@@ -18,7 +18,6 @@ import com.emp.exception.MyException;
 import com.emp.request.dto.AddItemRequestDto;
 import com.emp.request.dto.UpdateItemRequestDto;
 import com.emp.response.BaseResponse;
-import com.emp.response.dto.EmployeeResponseDto;
 import com.emp.response.dto.ItemResponseDto;
 import com.emp.service.IItemService;
 import com.emp.validator.ItemValidator;

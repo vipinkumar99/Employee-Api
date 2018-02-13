@@ -18,7 +18,8 @@ public enum ResponseCode {
 	NO_METAINFO_PRESENT("Meta info not found","NOT_FOUND"), 
 	NO_QUNTITY_PRESENT("Quntity is zero","ZERO_QUNTITY"),
 	NO_ITEM_PRESENT("Item not found","NOT_FOUND"), 
-	INVALID_CATEGORY_ID("Category Id is not valid", "NOT_VALID");
+	INVALID_CATEGORY_ID("Category Id is not valid", "NOT_VALID"),
+	NO_ROLE_PRESENT("Role not found","NOT_FOUND");
 	;
 
 	private String message;
