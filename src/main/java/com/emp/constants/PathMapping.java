@@ -32,5 +32,9 @@ public interface PathMapping {
 		String Base="/item";
 	}
 
-	
+	interface RoleMapping
+	{
+		String Base="/role";
+	}
+
 }
