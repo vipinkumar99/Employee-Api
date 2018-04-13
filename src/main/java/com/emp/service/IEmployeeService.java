@@ -12,7 +12,7 @@ public interface IEmployeeService {
 	public List<EmployeeResponseDto> getAllEmployeeList();
 	public EmployeeResponseDto getEmployeeById(int id);
 	public List<EmployeeResponseDto> getEmployeeByName(String name);
-	public EmployeeResponseDto saveEmployee(AddEmployeeRequestDto employee);
+	public EmployeeResponseDto saveEmployee(AddEmployeeRequestDto employee)throws MyException;
 	public EmployeeResponseDto  updateEmployee(UpdateEmployeeRequestDto employee)throws MyException;
 	public boolean deleteEmployee(int id);
 }

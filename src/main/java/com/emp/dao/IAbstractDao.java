@@ -8,5 +8,5 @@ public interface IAbstractDao <T> {
 	public void  delete(int id);
 	public List<T> all();
 	public  T getById(int id);
-
+	
 }

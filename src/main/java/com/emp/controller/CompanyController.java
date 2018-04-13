@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.emp.constants.PathMapping;
@@ -29,7 +30,7 @@ public class CompanyController {
 	@Autowired
 	ICompanyService companyService;
 
-	/* get all list*/
+	/* get all list */
 	@RequestMapping(path = PathMapping.All, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public BaseResponse<List<CompanyResponseDto>> getCompanyList() throws Exception {
@@ -40,7 +41,33 @@ public class CompanyController {
 		return new BaseResponse<List<CompanyResponseDto>>(false, response, ResponseCode.OK);
 	}
 
-	/* save */ 
+	/* get all by pagination by get method */
+	@RequestMapping(path = PathMapping.PAGINATION, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public BaseResponse<List<CompanyResponseDto>> getCompanyListByPaginationByGet(
+			@RequestParam(name = PathMapping.PAGE_PARAM, required = true) int page,
+			@RequestParam(name = PathMapping.PAGE_SIZE_PARAM, required = true) int size) throws Exception {
+		List<CompanyResponseDto> response = companyService.getByPage(page, size);
+		if (CollectionUtils.isEmpty(response)) {
+			return new BaseResponse<>(false, null, ResponseCode.NO_COMPANY_PRESENT);
+		}
+		return new BaseResponse<List<CompanyResponseDto>>(false, response, ResponseCode.OK);
+	}
+
+	/* get all by pagination by post method */
+	@RequestMapping(path = PathMapping.PAGINATION, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public BaseResponse<List<CompanyResponseDto>> getCompanyListByPagination(
+			@RequestParam(value = PathMapping.CompanyMapping.START, required = true) int start,
+			@RequestParam(value = PathMapping.CompanyMapping.END, required = true) int end) throws Exception {
+		List<CompanyResponseDto> response = companyService.getByPage(start, end);
+		if (CollectionUtils.isEmpty(response)) {
+			return new BaseResponse<>(false, null, ResponseCode.NO_COMPANY_PRESENT);
+		}
+		return new BaseResponse<List<CompanyResponseDto>>(false, response, ResponseCode.OK);
+	}
+
+	/* save */
 	@RequestMapping(path = PathMapping.SAVE, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public BaseResponse<CompanyResponseDto> saveCustomer(@RequestBody AddCompanyRequestDto request) throws Exception {
@@ -64,7 +91,7 @@ public class CompanyController {
 		return new BaseResponse<CompanyResponseDto>(false, response, ResponseCode.OK);
 	}
 
-	/* update */ 
+	/* update */
 	@RequestMapping(path = PathMapping.UDATE, method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public BaseResponse<CompanyResponseDto> updateCompany(@RequestBody UpdateCompanyRequestDto request)
@@ -76,7 +103,7 @@ public class CompanyController {
 		return new BaseResponse<CompanyResponseDto>(false, response, ResponseCode.OK);
 	}
 
-/*delete by id */
+	/* delete by id */
 	@RequestMapping(path = PathMapping.ID_PARAM, method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public BaseResponse<CompanyResponseDto> deleteById(@PathVariable(PathMapping.ID) int id) throws Exception {

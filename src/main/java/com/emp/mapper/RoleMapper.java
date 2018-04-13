@@ -12,6 +12,9 @@ import com.emp.utils.DateUtils;
 public class RoleMapper {
 
 	public static RoleResponseDto convertEntityToResponse(Role request) {
+		if (request == null) {
+			return null;
+		}
 		RoleResponseDto response = new RoleResponseDto();
 		response.setId(request.getId());
 		response.setName(request.getName());

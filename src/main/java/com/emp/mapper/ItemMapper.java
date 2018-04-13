@@ -46,6 +46,7 @@ public class ItemMapper {
 		response.setImage(entity.getImage());
 		response.setPrice(entity.getPrice());
 		response.setQuntity(entity.getQuntity());
+		response.setTotalPrice(entity.getTotalPrice());
 		response.setCategoryId(entity.getCategoryId());
 		response.setMetaInfo(JsonMapperUtils.convertJsonToObject(entity.getMetaInfo(), Object.class));
 		return response;

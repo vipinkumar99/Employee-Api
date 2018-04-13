@@ -19,6 +19,7 @@ import com.emp.response.dto.CategoryResponseDto;
 import com.emp.response.dto.ItemResponseDto;
 import com.emp.service.ICategoryService;
 import com.emp.service.IItemService;
+import com.emp.utils.NumberUtils;
 
 @Service
 public class ItemService implements IItemService {
@@ -47,6 +48,8 @@ public class ItemService implements IItemService {
 		if (categoryDao.getById(item.getCategoryId()) == null) {
 			throw new MyException(ResponseCode.INVALID_CATEGORY_ID);
 		}
+		double total = NumberUtils.totalPrice(item.getQuntity(), item.getPrice());
+		item.setTotalPrice(total);
 		itemDao.save(item);
 		return getResponse(item);
 	}

@@ -2,6 +2,8 @@ package com.emp.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -36,13 +38,14 @@ public class EmployeeController {
 		if (CollectionUtils.isEmpty(response)) {
 			return new BaseResponse<>(false, null, ResponseCode.NO_EMPLOYEE_PRESENT);
 		}
-		//System.out.println(response);
+		// System.out.println(response);
 		return new BaseResponse<List<EmployeeResponseDto>>(false, response, ResponseCode.OK);
 	}
 
 	@RequestMapping(path = PathMapping.NAME_PARAM, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public BaseResponse<List<EmployeeResponseDto>> getEmployeeByName(@PathVariable(PathMapping.NAME) String name) throws Exception {
+	public BaseResponse<List<EmployeeResponseDto>> getEmployeeByName(@PathVariable(PathMapping.NAME) String name)
+			throws Exception {
 		List<EmployeeResponseDto> response = employeeService.getEmployeeByName(name);
 		if (CollectionUtils.isEmpty(response)) {
 			return new BaseResponse<>(false, null, ResponseCode.NO_EMPLOYEE_PRESENT);
@@ -50,10 +53,11 @@ public class EmployeeController {
 		return new BaseResponse<List<EmployeeResponseDto>>(false, response, ResponseCode.OK);
 
 	}
-	
+
 	@RequestMapping(path = PathMapping.SAVE, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public BaseResponse<EmployeeResponseDto> saveEmployee(@RequestBody AddEmployeeRequestDto request) throws Exception {
+	public BaseResponse<EmployeeResponseDto> saveEmployee(@Valid @RequestBody AddEmployeeRequestDto request)
+			throws Exception {
 		EmployeeValidator.addEmployeeRequestDtoValidator(request);
 		EmployeeResponseDto response = employeeService.saveEmployee(request);
 		if (response == null) {
@@ -75,34 +79,27 @@ public class EmployeeController {
 
 	}
 
-	
-	
-	
 	@RequestMapping(path = PathMapping.UDATE, method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public BaseResponse<EmployeeResponseDto> updateEmployee(@RequestBody UpdateEmployeeRequestDto request) throws Exception {
-	EmployeeValidator.addEmployeeRequestDtoValidator(request);
-	EmployeeResponseDto response = employeeService.updateEmployee(request);
-	if(response == null)
-	{
-		return new BaseResponse<>(false,null,ResponseCode.NO_EMPLOYEE_PRESENT);
+	public BaseResponse<EmployeeResponseDto> updateEmployee(@RequestBody UpdateEmployeeRequestDto request)
+			throws Exception {
+		EmployeeValidator.addEmployeeRequestDtoValidator(request);
+		EmployeeResponseDto response = employeeService.updateEmployee(request);
+		if (response == null) {
+			return new BaseResponse<>(false, null, ResponseCode.NO_EMPLOYEE_PRESENT);
+		}
+		return new BaseResponse<EmployeeResponseDto>(false, response, ResponseCode.OK);
 	}
-		return new BaseResponse<EmployeeResponseDto>(false,response,ResponseCode.OK);
-	}
-
 
 	@RequestMapping(path = PathMapping.ID_PARAM, method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public BaseResponse<EmployeeResponseDto> deleteEmployeeById(@PathVariable(PathMapping.ID) int id) throws Exception {
-		
+
 		if (!employeeService.deleteEmployee(id)) {
 			return new BaseResponse<>(false, null, ResponseCode.NO_EMPLOYEE_PRESENT);
 		}
 		return new BaseResponse<EmployeeResponseDto>(false, null, ResponseCode.OK);
 
 	}
-
-
-
 
 }

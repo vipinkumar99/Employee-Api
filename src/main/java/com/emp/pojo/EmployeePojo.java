@@ -1,11 +1,19 @@
 package com.emp.pojo;
 
-import java.util.Date;
-
 public class EmployeePojo {
 
 	private String emName;
 	private int emAge;
+	private int roleId;
+	
+
+	public int getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(int roleId) {
+		this.roleId = roleId;
+	}
 
 	public String getEmName() {
 		return emName;

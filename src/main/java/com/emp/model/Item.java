@@ -20,6 +20,7 @@ public class Item {
 		String QUNTITY = "quntity";
 		String PRICE = "price";
 		String META = "metainfo";
+		String Total = "total_price";
 	}
 
 	@Id
@@ -38,6 +39,16 @@ public class Item {
 	private double price;
 	@Column(name = Columns.META, length = 500, nullable = false)
 	private String metaInfo;
+	@Column(name = Columns.Total)
+	private double totalPrice;
+
+	public double getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(double totalPrice) {
+		this.totalPrice = totalPrice;
+	}
 
 	public int getId() {
 		return id;

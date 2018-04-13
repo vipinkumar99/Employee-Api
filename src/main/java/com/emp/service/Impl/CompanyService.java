@@ -38,15 +38,14 @@ public class CompanyService implements ICompanyService {
 	@Override
 	public CompanyResponseDto updateCompany(UpdateCompanyRequestDto request) {
 		Company company = CompanyMapper.convertUpdateRequestToEntity(request);
-		if(company == null)
-		{
+		if (company == null) {
 			return null;
 		}
 		companyDao.update(company);
 		return CompanyMapper.convertEntityToResponse(company);
 	}
 
-	@Override 
+	@Override
 	public boolean deleteCompany(int id) {
 		companyDao.delete(id);
 		return true;
@@ -55,6 +54,20 @@ public class CompanyService implements ICompanyService {
 	@Override
 	public CompanyResponseDto getById(int id) {
 		return CompanyMapper.convertEntityToResponse(companyDao.getById(id));
+	}
+
+	@Override
+	public void saveList(List<AddCompanyRequestDto> requestList) {
+		List<Company> companyList = CompanyMapper.convertAddListToEntityList(requestList);
+		for (Company entity : companyList) {
+			companyDao.save(entity);
+		}
+	}
+
+	@Override
+	public List<CompanyResponseDto> getByPage(int start, int end) {
+		String ASC = "";
+		return CompanyMapper.convertEntityListToResponseList(companyDao.getAll(start, end, ASC));
 	}
 
 }

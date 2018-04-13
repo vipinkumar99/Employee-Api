@@ -49,7 +49,15 @@ public class CompanyMapper {
 		return response;
 	}
 
-	
-	
-	
+	public static List<Company> convertAddListToEntityList(List<AddCompanyRequestDto> companyList) {
+		if (companyList == null)
+			return null;
+		List<Company> responseList = new ArrayList<Company>(companyList.size());
+		for (AddCompanyRequestDto company : companyList) {
+			Company entity = convertAddRequestToEntity(company);
+			responseList.add(entity);
+		}
+		return responseList;
+	}
+
 }

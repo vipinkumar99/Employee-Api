@@ -23,12 +23,15 @@ public class AdminMapper {
 	}
 
 	public static AdminResponseDto convertEntityToResponse(Admin request) {
+		if (request == null) {
+			return null;
+		}
 		AdminResponseDto response = new AdminResponseDto();
 		response.setId(request.getId());
 		response.setName(request.getName());
 		response.setEmail(request.getEmail());
-		response.setMetaInfo(request.getMetaInfo());
-		response.setMetaInfo(JsonMapperUtils.convertToList(request.getMetaInfo(), Object.class));
+		response.setMobileNumber(request.getMobileNumber());
+		response.setMetaInfo(JsonMapperUtils.convertJsonToObject(request.getMetaInfo(), Object.class));
 		response.setUserName(request.getUserName());
 		response.setCreated(DateUtils.dateConversion(request.getCreated(), DateUtils.FIRST_DATE_FORMAT));
 		response.setUpdated(DateUtils.dateConversion(request.getUpdated(), DateUtils.FIRST_DATE_FORMAT));
@@ -36,6 +39,9 @@ public class AdminMapper {
 	}
 
 	public static Admin convertAddRequestToEntity(AddAdminRequestDto request) {
+		if (request == null) {
+			return null;
+		}
 		Admin response = new Admin();
 		response.setName(request.getName());
 		response.setEmail(request.getEmail());
@@ -43,18 +49,21 @@ public class AdminMapper {
 		response.setPassword(request.getPassword());
 		response.setMobileNumber(request.getMobileNumber());
 		response.setMetaInfo(JsonMapperUtils.convertObjectToJson(request.getMetaInfo()));
-		return null;
+		return response;
 	}
 
-	public static Admin convertAddRequestToEntity(UpdateAdminRequestDto request) {
+	public static Admin convertUpdateRequestToEntity(UpdateAdminRequestDto request) {
+		if (request == null) {
+			return null;
+		}
 		Admin response = new Admin();
 		response.setId(request.getId());
 		response.setName(request.getName());
-		response.setEmail(request.getEmail());
-		response.setUserName(request.getUserName());
+		// response.setEmail(request.getEmail());
+		// response.setUserName(request.getUserName());
 		response.setMobileNumber(request.getMobileNumber());
 		response.setMetaInfo(JsonMapperUtils.convertObjectToJson(request.getMetaInfo()));
-		return null;
+		return response;
 	}
 
 }

@@ -13,4 +13,6 @@ public interface ICompanyService {
 	public CompanyResponseDto  updateCompany(UpdateCompanyRequestDto company);
 	public CompanyResponseDto getById(int id);
 	public boolean deleteCompany(int id);
+	public void saveList(List<AddCompanyRequestDto>requestList);
+	public List<CompanyResponseDto>getByPage(int start,int end);
 }

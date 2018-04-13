@@ -7,6 +7,7 @@ public class DateUtils {
 
 	public static final String FIRST_DATE_FORMAT = "yyyy-MM-dd hh:mm:ss";
 	public static final String SECOND_DATE_FORMAT = "yyyy/mm/dd hh:mm:ss";
+	public static final String FILE_DATE_FORMAT="MM_dd_yyyy_hh_mm_ss";
 
 	public static String dateConversion(Date date, String dateFormat) {
 		// SimpleDateFormat newDateFormat = new SimpleDateFormat(dateFormat);

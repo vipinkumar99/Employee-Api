@@ -4,6 +4,16 @@ import com.emp.pojo.ItemPojo;
 
 public class ItemResponseDto extends ItemPojo {
 
+	private double totalPrice;
+
+	public double getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(double totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+
 	private int id;
 	private CategoryResponseDto category;
 
